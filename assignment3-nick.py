@@ -170,4 +170,3 @@ class Doctor:
         file.write(f'{Doctor.formatDrInfo(doc)}\n')
         file.close()
 
-Doctor.displayDoctorList()
