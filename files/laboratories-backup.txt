@@ -1,0 +1,5 @@
+Laboratory_Cost
+CBC_100
+TFTs_200
+G-Testing_1500
+PET-Scan_2000

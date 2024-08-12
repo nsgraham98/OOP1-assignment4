@@ -169,4 +169,3 @@ class Doctor:
         file = open("files/doctors.txt", "a")
         file.write(f'{Doctor.formatDrInfo(doc)}\n')
         file.close()
-
