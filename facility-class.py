@@ -7,7 +7,9 @@ class Facility:
     def set_name(self, name):
         self._name = name
 
-    @staticmethod       #adds new facility
+
+    # Adds and writes the facility name to the file    
+    @staticmethod      
     def addFacility(): #returns full list of all fac_objects (with the new one)
         fac_obj = Facility(input("Enter new facility name: "))
         full_fac_list = Facility.readFacilitiesFile()
@@ -30,6 +32,7 @@ class Facility:
         file.close()
         return full_fac_list
 
+    # Displays the list of facilities
     @staticmethod
     def displayFacilies():
         full_fac_list = Facility.readFacilitiesFile()
@@ -38,7 +41,7 @@ class Facility:
             name = fac_obj._name
             print(f'{name}\n')
 
-
+    # Writes the facilities list to facilities.txt
     @staticmethod
     def writeListOfFacilitiesToFile(full_fac_list):
         file = open("files/facilities.txt", "w")
