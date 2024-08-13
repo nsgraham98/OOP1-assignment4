@@ -116,7 +116,7 @@ class Doctor:
     @staticmethod
     def doctorHeader():
         print(f'\n{"ID":<10}{"Name":<20}{"Speciality":<20}{"Timing":<20}{"Qualification":<20}Room Number')
-        print(f'{"=" * 101}\n')
+        print(f'{"=" * 101}')
 
     # editDoctorInfo 
     # Asks the user to enter the ID of the doctor to change their information, and then the user can enter the new doctor information
@@ -169,3 +169,4 @@ class Doctor:
         file = open("files/doctors.txt", "a")
         file.write(f'{Doctor.formatDrInfo(doc)}\n')
         file.close()
+Doctor.searchDoctorById()
