@@ -96,10 +96,10 @@ class patient:
         patients.append(patient)
         patient.writeListOfPatientsToFile(patients)
 
-#1 display doctors list
+#1 display patient list
 patient.displayPatientsList()
 
-#2 search for doctor by id
+#2 search for patient by id
 '''p = patient.searchPatientById()
 if p == '':
     print("No Id match")
@@ -107,11 +107,11 @@ else:
     patient.displayPatientInfo(p)'''
 
 
-#4 add dr
+#4 add patient
 '''p = patient.enterPatientInfo()
 patient.addPatientToFile(p)
 patient.displayPatientsList()'''
 
-#5 edit dr
+#5 edit patient
 '''patient.editPatientInfo()
 patient.displayPatientsList()'''

@@ -29,20 +29,20 @@ class facility:
     @staticmethod
     def readFacilitiesFile():
         facilities = []
-        #Open the doctor file
         f_obj = open('files/facilities.txt', 'r')
         line = f_obj.readline()
 
         while line != '':
             if line != 'Hospital  Facility are:\n':
-                #fill doctors into a list
                 f = facility(line)
                 facilities.append(f)
             line = f_obj.readline()
         f_obj.close()
         return(facilities)
     
+#display facility
 #facility.displayFacilities()
 
+#add facility
 facility.addFacility()
 facility.displayFacilities()

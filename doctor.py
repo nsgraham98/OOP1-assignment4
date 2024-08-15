@@ -62,6 +62,7 @@ class doctor:
         print(f"Qualification: {doctor.qualification}")
         print(f"Room Number: {doctor.roomNb}")
 
+
     @staticmethod
     def editDoctorInfo():
         id = input("Enter Dr. ID")
@@ -139,5 +140,5 @@ doctor.addDrToFile(d)
 doctor.displayDoctorsList()'''
 
 #5 edit dr
-doctor.editDoctorInfo()
-doctor.displayDoctorsList()
+'''doctor.editDoctorInfo()
+doctor.displayDoctorsList()'''

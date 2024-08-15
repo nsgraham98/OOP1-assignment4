@@ -35,13 +35,11 @@ class laboratory:
     @staticmethod
     def readLaboratoriesFile():
         laboratories = []
-        #Open the labratory file
         f_obj = open('files/laboratories.txt', 'r')
         line = f_obj.readline()
 
         while line != '':
             if line != 'Laboratory_Cost\n':
-                #fill laboratories into a list
                 tlist = line.rstrip().split("_")
                 l = laboratory(tlist[0], tlist[1])
                 laboratories.append(l)
@@ -50,10 +48,10 @@ class laboratory:
         return(laboratories)
     
     
-#1 display doctors list
+#display lab list
 laboratory.displayLabsList()
 
-#4 add dr
+#add lab
 '''d = laboratory.enterLaboratoryInfo()
 laboratory.addLabToFile(d)
 laboratory.displayLabsList()'''
