@@ -15,12 +15,12 @@ class doctor:
 
     @staticmethod
     def enterDrInfo():
-        id = input("Input Dr. ID")
-        n = input("Input Dr. Name")
-        s = input("Input Dr. Specialty")
-        t = input("Input Dr. Time")
-        q = input("Input Dr. Qualification")
-        rn = input("Input Dr. Room number")
+        id = input("Enter the doctor’s ID:")
+        n = input("Enter the doctor’s name:")
+        s = input("Enter the doctor’s specialty:")
+        t = input("Enter the doctor’s  timing (e.g., 7am-10pm):")
+        q = input("Enter the doctor’s qualification:")
+        rn = input("Enter the doctor’s room number:")
         return doctor(id,n,s,t,q,rn)
 
     
@@ -46,7 +46,7 @@ class doctor:
     @staticmethod
     def searchDoctorByName():
         doctors = doctor.readDoctorsFile()
-        i = input("Enter the doctor Name: ")
+        i = input("Enter the doctor’s name:")
         for d in doctors:
             if d.name == i:
                 return d
@@ -65,15 +65,15 @@ class doctor:
 
     @staticmethod
     def editDoctorInfo():
-        id = input("Enter Dr. ID")
+        id = input("Please enter the id of the doctor that you want to edit their information:")
         doctors = doctor.readDoctorsFile()
         for d in doctors:
             if d.id == id:
-                n = input("Input Dr. Name")
-                s = input("Input Dr. Specialty")
-                t = input("Input Dr. Time")
-                q = input("Input Dr. Qualification")
-                rn = input("Input Dr. Room number")
+                n = input("Enter new Name:")
+                s = input("Enter new Specialist in:")
+                t = input("Enter new timing:")
+                q = input("Enter new Qualification:")
+                rn = input("Enter new Room number:")
                 for i in range(len(doctors)):
                     if doctors[i].id == id:
                         doctors[i].name = n
@@ -125,7 +125,7 @@ class facility:
     
     @staticmethod
     def addFacility():
-        f = input("What facility would you like to add?")
+        f = input("Enter Facility name:")
         newf = facility(f)
         facilities = facility.readFacilitiesFile()
         facilities.append(newf)
@@ -142,7 +142,7 @@ class facility:
     @staticmethod
     def writeListOffacilitiesToFile(facilities):
         f_obj = open('files/facilities.txt', 'w')
-        f_obj.write("Hospital Facilities are: \n")
+        f_obj.write("The Hospital Facilities are: \n")
         for f in facilities:
             f_obj.write(f.name + "\n")
         f_obj.close()
@@ -193,8 +193,8 @@ class laboratory:
     
     @staticmethod
     def enterLaboratoryInfo():
-        n = input("Input Lab name")
-        c = input("Input Lab cost")
+        n = input("Enter Laboratory facility:")
+        c = input("Enter Laboratory cost:")
         return laboratory(n,c)
        
     @staticmethod
@@ -279,10 +279,10 @@ class patient:
         patients = patient.readPatientsFile()
         for p in patients:
             if p.pid == id:
-                n = input("Input patient Name")
-                d = input("Input patient disease")
-                g = input("Input patient gender")
-                a = input("Input patient age")
+                n = input("Enter Patient Name")
+                d = input("Enter Patient disease")
+                g = input("Enter Patient gender")
+                a = input("Enter Patient age")
                 for i in range(len(patients)):
                     if patients[i].pid == id:
                         patients[i].name = n
@@ -291,7 +291,7 @@ class patient:
                         patients[i].age = a
                 patient.writeListOfPatientsToFile(patients)
         else:
-            print("Patient not found")
+            print("Can't find the Patient with the same id on the system")
 
     @staticmethod
     def displayPatientsList():
@@ -351,13 +351,13 @@ def doctorMenu():
             case 2:
                 d = doctor.searchDoctorById()
                 if d == '':
-                    print("No Id match")
+                    print("Can't find the doctor with the same ID on the system")
                 else:
                     doctor.displayDoctorInfo(d)
             case 3:
                 d = doctor.searchDoctorByName()
                 if d == '':
-                    print("No Name match")
+                    print("Can't find the doctor with the same name on the system")
                 else:
                     doctor.displayDoctorInfo(d)
             case 4:
@@ -421,7 +421,7 @@ def patientMenu():
             case 2:
                 p = patient.searchPatientById()
                 if p == '':
-                    print("No Id match")
+                    print("Can't find the Patient with the same id on the system")
                 else:
                     patient.displayPatientInfo(p)
             case 3:
