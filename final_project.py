@@ -55,12 +55,7 @@ class doctor:
 
     @staticmethod
     def displayDoctorInfo(doctor):
-        print(f"ID: {doctor.id}")
-        print(f"Name: {doctor.name}")
-        print(f"Specialization: {doctor.specilist}")
-        print(f"Working Time: {doctor.timing}")
-        print(f"Qualification: {doctor.qualification}")
-        print(f"Room Number: {doctor.roomNb}")
+        print(f"{doctor.id:<10}{doctor.name:>20}{doctor.specilist:>20}{doctor.timing:>20}{doctor.roomNb:>20}")
 
 
     @staticmethod
