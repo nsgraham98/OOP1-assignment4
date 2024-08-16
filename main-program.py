@@ -239,234 +239,147 @@ class Laboratory:
     def __init__(self, name, cost):
         self._name = name
         self._cost = cost
-    
-    def get_name(self):
-        return self._name
-    def get_cost(self):
-        return self._cost
-    
-    def set_name(self, name):
-        self._name = name
-    def set_cost(self, cost):
-        self._cost = cost
-
-    #Adds and writes the lab name to the file in the format of the data that is in the file
     @staticmethod
-    def addLabToFile(lab_obj): #requires a single lab_object
-        file = open("files/laboratories.txt", "a")
-        file.write(f'\n{Laboratory.formatLabInfo(lab_obj)}')
-        file.close()
+    def readLabFile():
 
-    #  Writes the list of labs into the file laboratories.txt
-    @staticmethod
-    def writeListOfLabsToFile(full_lab_list): #requires the full list of all lab_objects
-        file = open("files/laboratories.txt", "w")
-        file.write(f"Laboratory_Cost\n")
-        for lab_obj in full_lab_list:
-            file.write(f'{Laboratory.formatLabInfo(lab_obj)}\n')
-        file.close()
-    
-    # Displays the list of laboratories
-    def displayLabsList():
-        full_lab_list = Laboratory.readLaboratoriesFile()
-        print(f'\n{"Lab":<20}{"Cost":<}')
-        print(f'{"="*25}')
-        for lab_obj in full_lab_list:
-            print(f'{lab_obj._name:<20}{lab_obj._cost:<}')
-        print("\nBack to the previous menu")
+        full_lab_list = []
+        f_obj = open('files/laboratories.txt', 'r')
+        line = f_obj.readline()
 
-    # Formats the Laboratory object similar to the laboratories.txt file
+        while line != '':
+            lab_data = line.rstrip().split('_')
+            #lab = (lab_data[0], lab_data[1])
+            lab = Laboratory(lab_data[0], str(lab_data[1]))
+            full_lab_list.append(lab)
+            line = f_obj.readline().rstrip()
+        f_obj.close()
+        return full_lab_list
+
     @staticmethod
-    def formatLabInfo(lab_obj): #requires a single lab_object, returns formatted string of said lab_object
+    def formatLabInfo(lab_obj):
         temp_list = [lab_obj._name, lab_obj._cost]
         temp_list[1] = str(temp_list[1])
         separ = "_"
         formatted_lab_string = separ.join(temp_list)
-        return formatted_lab_string
-    
-    # enterLaboratoryInfo Asks the user to enter lab name and cost and forms a Laboratory object
+        return formatted_lab_string + '\n'
+
+    @staticmethod
+    def displayLabsList():
+        full_lab_list = Laboratory.readLabFile()
+        for lab_obj in full_lab_list:
+            print(f"{lab_obj._name:<20}{lab_obj._cost:<}")
+
+
+    @staticmethod
+    def addLabToFile():
+        new_lab_list = []
+        lab_obj = Laboratory.enterLaboratoryInfo()
+        new_lab_list = Laboratory.readLabFile()
+        new_lab_list.append(lab_obj)
+        Laboratory.WriteListOfLabsToFile(new_lab_list)
+
     @staticmethod
     def enterLaboratoryInfo():
         lab_obj = Laboratory(input("Enter new Lab name: "), int(input("Enter the cost of the new Lab: $")))
-        Laboratory.addLabToFile(lab_obj)
-    print("\nBack to the previous menu")
+        return lab_obj
 
-    # Reads the laboratories.txt file and fills its contents in a list of Laboratory objects
     @staticmethod
-    def readLaboratoriesFile(): #returns full list of all lab_objects
-        full_lab_list = []
-        file = open("files/laboratories.txt", "r")
-        file.readline()
-        line = file.readline().rstrip()
+    def WriteListOfLabsToFile(new_lab_list):
+        file = open('files/laboratories.txt', 'w')
+        for lab_obj in new_lab_list:
+            file.write(Laboratory.formatLabInfo(lab_obj))
 
-        while line != "":
-            lab_list = line.split("_")
-            lab_obj = Laboratory(lab_list[0],int(lab_list[1]))
-            full_lab_list.append(lab_obj)
-            line = file.readline().rstrip()
+class patient:
+    def __init__(self, pid, name, disease, gender, age):
+        self.pid = pid
+        self.name = name
+        self.disease = disease
+        self.gender = gender
+        self.age = age
 
-        file.close()
-        return full_lab_list
 
-class Patient:
-
-    def __init__(self, pid=0, name="", disease="", gender="", age=0):
-        self._pid = pid
-        self._name = name
-        self._disease = disease
-        self._gender = gender
-        self._age = age
-        self._patient_info = [pid, name, disease, gender, age]
-
-    def get_pid(self):
-        return self._pid
-    def get_name(self):
-        return self._name
-    def get_disease(self):
-        return self._disease
-    def get_gender(self):
-        return self._gender
-    def get_age(self):
-        return self._age
-    def get_patient_info(self):
-        return self._patient_info
+    @staticmethod
+    def formatPatientInfo(patient):
+        return patient.pid +"_"+ patient.name+"_"+ patient.disease+"_"+ patient.gender+"_"+ patient.age+"_"+ "\n"
     
-    def set_pid(self, pid):
-        self._pid = pid
-    def set_name(self, name):
-        self._name = name
-    def set_disease(self, disease):
-        self._disease = disease
-    def set_gender(self, gender):
-        self._gender = gender
-    def set_age(self, age):
-        self._age = age
 
-    def set_patient_info(self, pid, name, disease, gender, age):
-        self._patient_info = [pid, name, disease, gender, age]
-        
-
-        # formatPatientInfo
-        # Formats each Patient’s information (properties) in the same format used in the .txt file (i.e., has underscores between values)
     @staticmethod
-    def formatPatientInfo(patient_obj): #requires 1 Patient_object
-        temp_list = patient_obj._patient_info
-        temp_list[0] = str(temp_list[0])
-        temp_list[4] = str(temp_list[4])
-        separ = "_"
-        formatted_patient_str = separ.join(temp_list)
-        return formatted_patient_str
+    def enterPatientInfo():
+        pid = input("Enter Patient ID: ")
+        n = input("Enter Name: ")
+        d = input("Enter Disease: ")
+        g = input("Enter Gender: ")
+        a = input("Enter Age: ")
+        return patient(pid,n,d,g,a)
 
-    # enterPatientInfo
-    # Asks the user to enter patient's properties (listed in the Properties point)
+
     @staticmethod
-    def enterPatientInfo(): 
-        patient_obj = Patient(int(input("Enter the patient's ID: ")), input("Enter the patient's name: "), input("Enter the patient's disease: "), input("Enter the patient's gender: "), int(input("Enter the patient's age: ")))
-        Patient.addPatientToFile(patient_obj)
-    print("\nBack to the previous menu")
+    def readPatientsFile():
+        patients = []
+        #Open the patient file
+        f_obj = open('files/patients.txt', 'r')
+        line = f_obj.readline()
 
-    # readPatientsFile 
-    # Reads from “patients.txt” file and fills the patient's objects in a list
-    @staticmethod
-    def readPatientsFile(): #returns list of all Patient_objects in patients.txt
-        full_patient_list = []
-        file = open("files/patients.txt", "r")
-        file.readline()
-        line = file.readline().rstrip("\n")
+        while line != '':
+            if line != 'id_Name_Disease_Gender_Age\n':
+                #fill patients into a list
+                tlist = line.rstrip().split("_")
+                p = patient(tlist[0], tlist[1], tlist[2], tlist[3], tlist[4])
+                patients.append(p)
+            line = f_obj.readline()
+        f_obj.close()
+        return(patients)
 
-        while line != "":
-            patient_list = line.split("_")
-            patient_obj = Patient(int(patient_list[0]),patient_list[1],patient_list[2],patient_list[3],int(patient_list[4]),)
-            full_patient_list.append(patient_obj)
-            line = file.readline()
-
-        file.close()
-        return full_patient_list
-
-    # searchPatientById 
-    # Searches whether the patient's is in the list of Patients/file using the patient's pid that the user enters
+    
     @staticmethod
     def searchPatientById():
-        verify = False
-        pid = int(input("Enter the patient's ID: "))
-        full_patient_list = Patient.readPatientsFile()
-        for patient_obj in full_patient_list:
-            if patient_obj != "":
-                if pid == patient_obj._pid:
-                    Patient.displayPatientInfo(patient_obj)
-                    verify = True
-        if verify == False:
-            print("Can't find the patient with the same ID on the system")
-        print("\nBack to the previous menu")
+        patients = patient.readPatientsFile()
+        i = input("Enter the patient ID: ")
+        for p in patients:
+            if p.pid == i:
+                return p
+        return ''
 
-    # displayPatientInfo 
-    # Displays patient's information on different lines, as a list
     @staticmethod
-    def displayPatientInfo(patient_obj): #requires list of 1 patient
-        Patient.patientHeader()
-        temp_list = patient_obj._patient_info
-        print(f'{temp_list[0]:<10}{temp_list[1]:<20}{temp_list[2]:<20}{temp_list[3]:<20}{temp_list[4]}')
-        print("\nBack to the previous menu") 
-
-    # patientHeader
-    # prints a header to be used when displaying patient's info
-    @staticmethod
-    def patientHeader():
-        print(f'\n{"ID":<10}{"Name":<20}{"Disease":<20}{"Gender":<20}Age')
-        print(f'{"=" * 75}')
-
-    # editPatientInfo 
-    # Asks the user to enter the pid of the patient's to change their information, and then the user can enter the new patient's information
-    @staticmethod
-    def editPatientInfo(): #returns list of all Patients
-        pid = int(input("Please enter the ID of the patient that you want to edit the information of: "))
-        full_patient_list = Patient.readPatientsFile()
-        for patient_obj in full_patient_list:
-            if patient_obj != "":
-                if patient_obj._pid == pid:
-                    patient_obj._name = input("Enter new name: ")
-                    patient_obj._disease = input("Enter new disease: ")
-                    patient_obj._gender = input("Enter new gender: ")
-                    patient_obj._age = int(input("Enter new age: "))
-                    patient_obj.set_patient_info(patient_obj._pid, patient_obj._name, patient_obj._disease, patient_obj._gender, patient_obj._age)
-            else:
-                print("Patient pid not found. ")
-        Patient.writeListOfPatientsToFile(full_patient_list)
-        print("\nBack to the previous menu")
-
-    # displayPatientsList 
-    # Displays all the Patients’ information, read from the file, as a report/table
-    @staticmethod
-    def displayPatientList():
-        full_patient_list = Patient.readPatientsFile()
-        Patient.patientHeader()
-        for patient_obj in full_patient_list:
-            temp_list = patient_obj._patient_info
-            print(f'{temp_list[0]:<10}{temp_list[1]:<20}{temp_list[2]:<20}{temp_list[3]:<20}{temp_list[4]:<20}')
-        print("\nBack to the previous menu")
-
-    # writeListOfPatientsToFile 
-    # Writes the list of Patients to the patients.txt file after formatting it correctly
-    @staticmethod
-    def writeListOfPatientsToFile(full_patient_list): #requires list of all patients
-        patient_list = full_patient_list
-
-        file = open("files/patients.txt", "w")
-        file.write(f"id_Name_Disease_Gender_Age\n")
-        for patient_obj in patient_list:
-            file.write(f'{Patient.formatPatientInfo(patient_obj)}\n')
+    def displayPatientInfo(patient):
+        print(f"{patient.pid:<10}{patient.name:>20}{patient.disease:>20}{patient.gender:>20}{patient.age:>20}")
         
-        file.close()
-
-    # addPatientToFile 
-    # Writes Patients to the patients.txt file after formatting it correctly
     @staticmethod
-    def addPatientToFile(patient_obj): #requires 1 Patient_object
-        patient = patient_obj
+    def editPatientInfo():
+        id = input("Enter patient ID")
+        patients = patient.readPatientsFile()
+        for p in patients:
+            if p.pid == id:
+                n = input("Enter Patient Name")
+                d = input("Enter Patient disease")
+                g = input("Enter Patient gender")
+                a = input("Enter Patient age")
+                for i in range(len(patients)):
+                    if patients[i].pid == id:
+                        patients[i].name = n
+                        patients[i].disease = d
+                        patients[i].gender = g
+                        patients[i].age = a
+                patient.writeListOfPatientsToFile(patients)
 
-        file = open("files/patients.txt", "a")
-        file.write(f'\n{Patient.formatPatientInfo(patient)}')
-        file.close()
+    @staticmethod
+    def displayPatientsList():
+        patients = patient.readPatientsFile()
+        for p in patients:
+            patient.displayPatientInfo(p)
+
+    @staticmethod
+    def writeListOfPatientsToFile(patients):
+        f_obj = open('files/patients.txt', 'w')
+        for p in patients:
+            f_obj.write(patient.formatPatientInfo(p))
+        f_obj.close()
+
+    @staticmethod
+    def addPatientToFile(patient):
+        patients = patient.readPatientsFile()
+        patients.append(patient)
+        patient.writeListOfPatientsToFile(patients)
 
 def DisplayMenu():
 
@@ -537,7 +450,7 @@ def laboratoryMenu():
         Laboratory.displayLabsList()
         laboratoryMenu()
     elif lab_choice == 2:
-        Laboratory.enterLaboratoryInfo()
+        Laboratory.addLabToFile()
         laboratoryMenu()
     elif lab_choice == 3:
         DisplayMenu()
@@ -546,25 +459,29 @@ def laboratoryMenu():
         laboratoryMenu()
     
 def patientMenu():
-    print("\nPatients Menu:")
-    print(f"1 - Display Patients list\n2 - Search for Patient by ID\n3 - Add Patient\n4 - Edit Patient info\n5 - Back to the Main Menu\n")
-    pat_choice = int(input("Enter your selection: "))
-    if pat_choice == 1:
-        Patient.displayPatientList()
-        patientMenu()
-    elif pat_choice == 2:
-        Patient.searchPatientById()
-        patientMenu()
-    elif pat_choice == 3:
-        Patient.enterPatientInfo()
-        patientMenu()
-    elif pat_choice == 4:
-        Patient.editPatientInfo()
-        patientMenu()
-    elif pat_choice == 5:
-        DisplayMenu()
-    else:
-        print("Invalid selection. Please enter a number 1-6 for your selection.")
-        patientMenu()
+    while True:
+        print("\nPatients Menu:")
+        print("1 - Display Patients list\n2 - Search for Patient by ID\n3 - Add Patient\n4 - Edit Patient info\n5 - Back to the Main Menu\n")
 
+        pchoice = int(input("Enter your selection: "))
+        
+        match pchoice:
+            case 1:
+                patient.displayPatientsList()
+            case 2:
+                p = patient.searchPatientById()
+                if p == '':
+                    print("Can't find the Patient with the same id on the system")
+                else:
+                    patient.displayPatientInfo(p)
+            case 3:
+                p = patient.enterPatientInfo()
+                patient.addPatientToFile(p)
+            case 4:
+                patient.editPatientInfo()
+            case 5:
+                DisplayMenu()
+                return
+            case _:
+                print("Invalid selection. Please enter a number 1-5 for your selection.")
 DisplayMenu()
