@@ -51,11 +51,7 @@ class patient:
 
     @staticmethod
     def displayPatientInfo(patient):
-        print(f"Patient ID: {patient.pid}")
-        print(f"Name: {patient.name}")
-        print(f"Disease: {patient.disease}")
-        print(f"Gender: {patient.gender}")
-        print(f"Age: {patient.age}")
+        print(f"{patient.pid:<10}{patient.name:>20}{patient.disease:>20}{patient.gender:>20}{patient.age:>20}")
         
     @staticmethod
     def editPatientInfo():
@@ -63,10 +59,10 @@ class patient:
         patients = patient.readPatientsFile()
         for p in patients:
             if p.pid == id:
-                n = input("Input patient Name")
-                d = input("Input patient disease")
-                g = input("Input patient gender")
-                a = input("Input patient age")
+                n = input("Enter Patient Name")
+                d = input("Enter Patient disease")
+                g = input("Enter Patient gender")
+                a = input("Enter Patient age")
                 for i in range(len(patients)):
                     if patients[i].pid == id:
                         patients[i].name = n
@@ -74,8 +70,6 @@ class patient:
                         patients[i].gender = g
                         patients[i].age = a
                 patient.writeListOfPatientsToFile(patients)
-        else:
-            print("Patient not found")
 
     @staticmethod
     def displayPatientsList():
@@ -96,22 +90,30 @@ class patient:
         patients.append(patient)
         patient.writeListOfPatientsToFile(patients)
 
-#1 display patient list
-patient.displayPatientsList()
 
-#2 search for patient by id
-'''p = patient.searchPatientById()
-if p == '':
-    print("No Id match")
-else:
-    patient.displayPatientInfo(p)'''
+def patientMenu():
+    while True:
+        print("\nPatients Menu:")
+        print("1 - Display Patients list\n2 - Search for Patient by ID\n3 - Add Patient\n4 - Edit Patient info\n5 - Back to the Main Menu\n")
 
-
-#4 add patient
-'''p = patient.enterPatientInfo()
-patient.addPatientToFile(p)
-patient.displayPatientsList()'''
-
-#5 edit patient
-'''patient.editPatientInfo()
-patient.displayPatientsList()'''
+        pchoice = int(input("Enter your selection: "))
+        
+        match pchoice:
+            case 1:
+                patient.displayPatientsList()
+            case 2:
+                p = patient.searchPatientById()
+                if p == '':
+                    print("Can't find the Patient with the same id on the system")
+                else:
+                    patient.displayPatientInfo(p)
+            case 3:
+                p = patient.enterPatientInfo()
+                patient.addPatientToFile(p)
+            case 4:
+                patient.editPatientInfo()
+            case 5:
+                DisplayMenu()
+                return
+            case _:
+                print("Invalid selection. Please enter a number 1-5 for your selection.")
