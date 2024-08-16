@@ -314,8 +314,10 @@ class patient:
 
 
 
+
 def DisplayMenu():
-    while True:
+    shouldexit = False
+    while shouldexit == False:
         print("\nWelcome to Alberta Hospital (AH) Management system\nSelect from the following options, or select 0 to stop: ")
         print("1 - Doctors\n2 - Facilities\n3 - Laboratories\n4 - Patients\n0 - Exit program\n")
         
@@ -332,7 +334,7 @@ def DisplayMenu():
                 patientMenu()
             case 0:
                 print("Goodbye!")
-                return
+                shouldexit = True
             case _:
                 print("Invalid Selection. Please enter 1-4 or 0 to exit.")
 
