@@ -58,6 +58,7 @@ class Doctor:
     def enterDrInfo(): #returns inputted info as a doctor object
         doc_obj = Doctor(int(input("Enter the doctor's ID: ")), input("Enter the doctor's name: "), input("Enter the doctor's specility: "), input("Enter the doctor's timing (e.g., 7am-10pm): "), input("Enter the doctor's qualification: "), int(input("Enter the doctor's room number: ")))
         Doctor.addDrToFile(doc_obj)
+        print("\nBack to the previous menu")
 
     # readDoctorsFile 
     # Reads from “doctors.txt” file and fills the doctor objects in a list
@@ -81,27 +82,33 @@ class Doctor:
     # Searches whether the doctor is in the list of doctors/file using the doctor ID that the user enters
     @staticmethod
     def searchDoctorById():
+        verify = False
         id = int(input("Enter the doctor ID: "))
         full_doc_list = Doctor.readDoctorsFile()
         for doc_obj in full_doc_list:
             if doc_obj != "":
                 if id == doc_obj._id:
                     Doctor.displayDoctorInfo(doc_obj)
-            else:
+                    verify = True
+        if verify == False:
                 print("Can't find the doctor with the same ID on the system")
+        print("\nBack to the previous menu")
 
     # searchDoctorByName 
     # Searches whether the doctor is in the list of doctors/file using the doctor name that the user enters
     @staticmethod
     def searchDoctorByName():
+        verify = False
         name = input("Enter the doctor name: ")
         full_doc_list = Doctor.readDoctorsFile()
         for doc_obj in full_doc_list:
             if doc_obj != "":
                 if name == doc_obj._name:
                     Doctor.displayDoctorInfo(doc_obj)
-            else:
-                print("Can't find the doctor with the same name on the system")
+                    verify = True
+        if verify == False:
+            print("Can't find the doctor with the same name on the system")
+        print("\nBack to the previous menu")
 
     # displayDoctorInfo 
     # Displays doctor information on different lines, as a list
@@ -136,6 +143,7 @@ class Doctor:
             else:
                 print("Doctor ID not found. ")
         Doctor.writeListOfDoctorsToFile(full_doc_list)
+        print("\nBack to the previous menu")
 
     # displayDoctorsList 
     # Displays all the doctors’ information, read from the file, as a report/table
@@ -146,6 +154,7 @@ class Doctor:
         for doc_obj in full_doc_list:
             temp_list = doc_obj._doc_info
             print(f'{temp_list[0]:<10}{temp_list[1]:<20}{temp_list[2]:<20}{temp_list[3]:<20}{temp_list[4]:<20}{temp_list[5]}')
+        print("\nBack to the previous menu")
 
     # writeListOfDoctorsToFile 
     # Writes the list of doctors to the doctors.txt file after formatting it correctly
@@ -188,6 +197,7 @@ class Facility:
         full_fac_list.append(fac_obj)
 
         Facility.writeListOfFacilitiesToFile(full_fac_list)
+        print("\nBack to the previous menu")       
 
     @staticmethod
     def readFacilitiesFile(): #returns full list of all fac_objects
@@ -213,6 +223,7 @@ class Facility:
         for fac_obj in full_fac_list:
             name = fac_obj._name
             print(f'{name}')
+        print("\nBack to the previous menu")
 
     # Writes the facilities list to facilities.txt
     @staticmethod
@@ -262,6 +273,7 @@ class Laboratory:
         print(f'{"="*25}')
         for lab_obj in full_lab_list:
             print(f'{lab_obj._name:<20}{lab_obj._cost:<}')
+        print("\nBack to the previous menu")
 
     # Formats the Laboratory object similar to the laboratories.txt file
     @staticmethod
@@ -277,6 +289,7 @@ class Laboratory:
     def enterLaboratoryInfo():
         lab_obj = Laboratory(input("Enter new Lab name: "), int(input("Enter the cost of the new Lab: $")))
         Laboratory.addLabToFile(lab_obj)
+    print("\nBack to the previous menu")
 
     # Reads the laboratories.txt file and fills its contents in a list of Laboratory objects
     @staticmethod
@@ -347,9 +360,10 @@ class Patient:
     # enterPatientInfo
     # Asks the user to enter patient's properties (listed in the Properties point)
     @staticmethod
-    def enterPatientInfo(): #returns inputted info as a patient's object
+    def enterPatientInfo(): 
         patient_obj = Patient(int(input("Enter the patient's ID: ")), input("Enter the patient's name: "), input("Enter the patient's disease: "), input("Enter the patient's gender: "), int(input("Enter the patient's age: ")))
         Patient.addPatientToFile(patient_obj)
+    print("\nBack to the previous menu")
 
     # readPatientsFile 
     # Reads from “patients.txt” file and fills the patient's objects in a list
@@ -373,14 +387,17 @@ class Patient:
     # Searches whether the patient's is in the list of Patients/file using the patient's pid that the user enters
     @staticmethod
     def searchPatientById():
+        verify = False
         pid = int(input("Enter the patient's ID: "))
         full_patient_list = Patient.readPatientsFile()
         for patient_obj in full_patient_list:
             if patient_obj != "":
                 if pid == patient_obj._pid:
                     Patient.displayPatientInfo(patient_obj)
-            else:
-                print("Can't find the patient with the same ID on the system")
+                    verify = True
+        if verify == False:
+            print("Can't find the patient with the same ID on the system")
+        print("\nBack to the previous menu")
 
     # displayPatientInfo 
     # Displays patient's information on different lines, as a list
@@ -389,6 +406,7 @@ class Patient:
         Patient.patientHeader()
         temp_list = patient_obj._patient_info
         print(f'{temp_list[0]:<10}{temp_list[1]:<20}{temp_list[2]:<20}{temp_list[3]:<20}{temp_list[4]}')
+        print("\nBack to the previous menu") 
 
     # patientHeader
     # prints a header to be used when displaying patient's info
@@ -414,6 +432,7 @@ class Patient:
             else:
                 print("Patient pid not found. ")
         Patient.writeListOfPatientsToFile(full_patient_list)
+        print("\nBack to the previous menu")
 
     # displayPatientsList 
     # Displays all the Patients’ information, read from the file, as a report/table
@@ -424,6 +443,7 @@ class Patient:
         for patient_obj in full_patient_list:
             temp_list = patient_obj._patient_info
             print(f'{temp_list[0]:<10}{temp_list[1]:<20}{temp_list[2]:<20}{temp_list[3]:<20}{temp_list[4]:<20}')
+        print("\nBack to the previous menu")
 
     # writeListOfPatientsToFile 
     # Writes the list of Patients to the patients.txt file after formatting it correctly

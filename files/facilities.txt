@@ -1,5 +1,6 @@
 Hospital  Facility are:
 Ambulance
-Admissions 
+Admissions
 Canteen
 Emergency
+Covid Care
